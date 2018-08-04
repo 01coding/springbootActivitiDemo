@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!-- 阿里Druid数据源 -->
+	<bean name="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		  init-method="init" destroy-method="close">
+
+<!--		<property name="url" value="jdbc:mysql://10.10.232.242:3306/activiti_test" />
+		<property name="username" value="admin_gao" />
+		<property name="password" value="puhui" />-->
+
+		<property name="url" value="${datasource.url}" />
+		<property name="username" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+
+
+		<property name="initialSize" value="1" />
+		<property name="maxActive" value="150" />
+		<property name="minIdle" value="1" />
+		<property name="maxWait" value="60000" />
+		<property name="validationQuery" value="true" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="true" />
+		<property name="filters" value="mergeStat" />
+	</bean>
+
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="druidDataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="typeAliasesPackage" value="com.zjrodger.po.test" />
+		<property name="dataSource" ref="druidDataSource" />
+		<property name="mapperLocations"
+			value="classpath*:com/zjrodger/modules/*/dao/*.xml" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="plugins">
+			<list>
+				<!-- 添加分页插件 -->
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<props>
+							<prop key="dialect">mysql</prop>
+							<prop key="offsetAsPageNum">true</prop>
+							<prop key="rowBoundsWithCount">true</prop>
+							<prop key="pageSizeZero">true</prop>
+							<prop key="reasonable">true</prop>
+						</props>
+					</property>
+				</bean>
+
+				<!-- 添加打印SQL语句的插件 -->
+				<!-- 在开发时，可以将该插件放开，在生成环境时，将该插件关闭 -->
+				<!-- <bean class="com.zjrodger.gateway.configuration.interceptor.MybatisInterceptor"/> -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- Spring声明式事务 -->
+	<tx:advice id="userTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="find*" propagation="SUPPORTS" />
+			<tx:method name="get*" propagation="SUPPORTS" />
+			<tx:method name="select*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="pc"
+			expression="execution(* com.zjrodger.modules..service..*.*(..)) " />
+		<aop:advisor pointcut-ref="pc" advice-ref="userTxAdvice" />
+	</aop:config>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zjrodger.modules.activiti.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+</beans>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zjrodger.</groupId>
+    <artifactId>springboot-acitviti-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!-- <version>${jenkins.packging.version}</version> -->
+
+    <!-- 使用SpringBoot这个框架一定要引入该jar包 -->
+    <!-- 通过该配置，我们当前的App才是SpringBoot应用。 -->
+    <!-- 该配置会集成大量的SpringBoot插件，但是这些插件都没有被启用，我们只需要按需启用即可-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.13.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+
+    <!-- 定义依赖的版本信息 -->
+    <properties>
+        <activemq.version>5.11.2</activemq.version>
+        <!--<activiti.version>5.22.0</activiti.version>-->
+        <activiti.version>6.0.0.RC1</activiti.version>
+        <activiti.modeler.version>5.22.0</activiti.modeler.version>
+
+        <druid.version>1.0.4</druid.version>
+        <fastjson.version>1.2.9</fastjson.version>
+
+        <log4j2.version>2.4.1</log4j2.version>
+        <mybatis.version>3.4.1</mybatis.version>
+        <mybatis-spring.version>1.3.0</mybatis-spring.version>
+        <mysql.connector.version>5.1.38</mysql.connector.version>
+
+        <pagehelper.version>4.1.6</pagehelper.version>
+
+        <springframework.version>4.3.3.RELEASE</springframework.version>
+
+    </properties>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+
+        <!-- ============================================== -->
+        <!-- ==============  Spring组件  =================== -->
+        <!-- ============================================== -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <!-- =============================================== -->
+        <!-- =========== 日志系统组件：Log4j2日志框架 ========= -->
+        <!-- =============================================== -->
+
+        <!-- 1.移除SpringBoot框架默认的LogBack依赖组件 -->
+        <!-- 若没有该配置，仅仅配置引入log4j2的依赖，则并不会使得log4j2日志系统生效 -->
+        <!-- Boot项目启动时，依然会使用logback的日志系统 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- 移除SpringBoot框架默认的LogBack依赖组件 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!--2.下列的配置使用log4j2日志框架-->
+        <!-- (1)桥接层：用于slf4j接口与log4j2日志框架之间的桥接-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- (2)日志框架层：使用log4j2日志框架-->
+        <!-- log4j-core和log4j-api是log4j2日志框架的必备jar包 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- (3)web工程需要包含log4j-web，非web工程不需要 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- ============================================== -->
+        <!-- === 启用SpringBoot插件: Activiti ================== -->
+        <!-- ============================================== -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter-basic</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+
+        <!--Acitviti 6.0.0.RC1版本中，无此依赖，5.22.0版本有此依赖-->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-modeler</artifactId>
+            <version>${activiti.modeler.version}</version>
+        </dependency>
+        <!--Acitviti 6.0.0.RC1版本中，无此依赖，5.22.0版本有此依赖-->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-diagram-rest</artifactId>
+            <version>${activiti.modeler.version}</version>
+        </dependency>
+
+        <!--若没有下列bpmn包相关的依赖，则启动项目就会报错 -->
+        <!--Error creating bean with name 'processEngine':
+        nested exception is java.lang.NoClassDefFoundError:
+        org/activiti/bpmn/model/AdhocSubProcess-->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-converter</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+
+        <!-- ===  mybatis组件 ================== -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis-spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+
+        <!-- MyBatis提供的分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+
+        <!-- ===  Druid ================== -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+
+        <!-- ============================================== -->
+        <!-- ======= SpringBoot整合页面：JSP页面 ========= -->
+        <!-- ============================================== -->
+        <!-- 启用SpringBoot中，Web的相关插件 -->
+        <!-- 注意：不需要指定version -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <!--注意在引用依赖的时候，有一个依赖的scope是需要被注释掉的：org.apache.tomcat.embed，她的scope不需要，如果你没有注释的话，后面访问jsp 的时候就会报404；-->
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- jsp标签库，jstl表达式-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>
