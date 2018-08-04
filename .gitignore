@@ -1,0 +1,14 @@
+# 忽略Eclipse这个IDE的内容
+/bin/
+/.settings/
+/.classpath
+/.project
+
+# 忽略IDEA这个IDE的内容
+/.idea/
+/springbootAcitvitiDemo.iml
+
+# 忽略其他公共内容
+/target/
+/logs/
+/log/
