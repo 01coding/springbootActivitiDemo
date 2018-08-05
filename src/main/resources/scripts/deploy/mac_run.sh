@@ -3,3 +3,5 @@ java -server  -Xms1g -Xmx1g -Xmn512M -Xss256k -XX:PermSize=128M -XX:MaxPermSize=
 &
 
 java -server -XX:+PrintClassHistogram -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -Xloggc:/data1/springbootActivitiDemo/applogs/gc.log -jar /data1/springbootActivitiDemo/springboot-acitviti-demo-1.0-SNAPSHOT.jar
+
+java -jar /data1/springbootActivitiDemo/springboot-acitviti-demo-1.0-SNAPSHOT.war

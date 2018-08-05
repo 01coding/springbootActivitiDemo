@@ -7,6 +7,9 @@
     <groupId>com.zjrodger.</groupId>
     <artifactId>springboot-acitviti-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!-- 基于springboot架子的含有JSP页面的web项目，打包之后要想在本地独立部署运行，需要修改打包方式为war -->
+    <!-- 之后，使用java -jar xxx.war即可独立运行 -->
+    <packaging>war</packaging>
     <!-- <version>${jenkins.packging.version}</version> -->
 
     <!-- 使用SpringBoot这个框架一定要引入该jar包 -->
@@ -326,6 +329,8 @@
             </resource>-->
         </resources>
         <plugins>
+            <!--Spring Boot Maven plugin能够将Spring Boot应用
+                打包为可执行的jar或war文件，然后以通常的方式运行Spring Boot应用-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
