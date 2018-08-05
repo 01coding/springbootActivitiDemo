@@ -20,7 +20,9 @@
     </parent>
 
 
-    <!-- 定义依赖的版本信息 -->
+    <!-- 定义系统属性信息：
+            1.依赖的版本
+            2.项目打包构建的相关信息 -->
     <properties>
         <activemq.version>5.11.2</activemq.version>
         <!--<activiti.version>5.22.0</activiti.version>-->
@@ -38,6 +40,17 @@
         <pagehelper.version>4.1.6</pagehelper.version>
 
         <springframework.version>4.3.3.RELEASE</springframework.version>
+
+        <!-- 项目构建相关的配置【重要】 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!--
+            【重要】若没有start-class这个属性，则在Maven打包构建项目时，
+            生成的jar包中，META-INF/MANIFEST.MF文件中就没有Main-Class这一项，
+            从而导致通过脚本部署启动项目时，报错：myToolsRepo-1.0-SNAPSHOT.jar中没有主清单属性
+        -->
+        <start-class>com.zjrodger.BootServerApplication</start-class>
 
     </properties>
 
@@ -272,4 +285,62 @@
 
     </dependencies>
 
+
+    <!-- 项目打包构建时注意点 -->
+    <!-- 注意点01：在properties属性中，注意Main-Class的配置 -->
+    <!-- 注意点02：必须配置spring-boot-maven-plugin插件 -->
+    <build>
+        <!-- 控制jar包的名字 -->
+        <!--<finalName>${project.artifactId}</finalName>-->
+
+        <resources>
+            <!-- 控制源代码的打包规则 -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <!-- 控制配置文件的打包规则 -->
+            <resource>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>*.properties</include>
+                    <include>*.xml</include>
+                    <include>*.json</include>
+                    <include>spring/*.xml</include>
+                    <include>com/**</include>
+                    <include>static/**</include>
+                    <include>templates/**</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+<!--            <resource>
+                <directory>src/main/resources/${package.environment}</directory>
+                <includes>
+                    <include>application.properties</include>
+                    <include>*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>-->
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/Abstract*.java</exclude>
+                        <exclude>**/*Tests.java</exclude>
+                        <exclude>**/*Test.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
