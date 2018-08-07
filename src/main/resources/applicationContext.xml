@@ -10,7 +10,7 @@
 	<!-- ========= 引入Acitviti组件 ======== -->
 	<!-- ================================= -->
 	<!-- 方式01：通过XML配置文件的方式 -->
-	<import resource="spring/spring-activiti.cfg.xml"/>
+	<!--<import resource="spring/spring-activiti.cfg.xml"/>-->
 	<!-- 方式02：通过@Configuration的JavaBean的方式，具体参考类：com.zjrodger.activiti.config.Config4Activiti-->
 
 </beans>

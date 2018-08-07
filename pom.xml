@@ -183,6 +183,12 @@
             <version>${log4j2.version}</version>
         </dependency>
 
+        <!-- =========== SpringBoot提供的Log4j2日志框架组件： ========= -->
+<!--        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>-->
+
         <!-- ============================================== -->
         <!-- === 启用SpringBoot插件: Activiti ================== -->
         <!-- ============================================== -->
