@@ -40,10 +40,10 @@ public class ActivitiController {
             ObjectNode modelObjectNode = objectMapper.createObjectNode();
             modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, "hello1111");
             modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, 1);
-            String description = "hello1111";
+            String description = "hello2211";
             modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, description);
             modelData.setMetaInfo(modelObjectNode.toString());
-            modelData.setName("hello1111");
+            modelData.setName("hello2211");
             modelData.setKey("12313123");
 
             //保存模型

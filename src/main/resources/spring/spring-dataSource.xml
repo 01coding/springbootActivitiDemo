@@ -14,9 +14,9 @@
 		<property name="username" value="admin_gao" />
 		<property name="password" value="puhui" />-->
 
-		<property name="url" value="${datasource.url}" />
-		<property name="username" value="${datasource.username}" />
-		<property name="password" value="${datasource.password}" />
+		<property name="url" value="${spring.datasource.url}" />
+		<property name="username" value="${spring.datasource.username}" />
+		<property name="password" value="${spring.datasource.password}" />
 
 
 		<property name="initialSize" value="1" />
@@ -43,10 +43,19 @@
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="typeAliasesPackage" value="com.zjrodger.po.test" />
+		<!--1. typeAliasesPackage是存放数据库表Entity对应的包名，可以利用通配符"**"，比如：com.demo.**.domain-->
+		<property name="typeAliasesPackage" value="com.zjrodger.modules.**.entity" />
+
+		<!--2. mapperLocations的通配符说明：
+			(1)在classpath后面的*必不可少，缺少型号的话后面的通配符不起作用。
+			(2)**表示可以表示任意多级目录，如：上述配置可以查到【com/huaxin/framework/system/dao/UserDaoMapper.xml】
+			(3)*表示多个任意字符
+			(4)缺少classpath后面的*会报错
+			原文链接：https://blog.csdn.net/szwangdf/article/details/23432783
+		-->
+		<property name="mapperLocations" value="classpath*:com/zjrodger/modules/**/dao/*Mapper.xml" />
+
 		<property name="dataSource" ref="druidDataSource" />
-		<property name="mapperLocations"
-			value="classpath*:com/zjrodger/modules/*/dao/*.xml" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="plugins">
 			<list>
