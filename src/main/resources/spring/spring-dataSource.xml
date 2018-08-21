@@ -53,7 +53,7 @@
 			(4)缺少classpath后面的*会报错
 			原文链接：https://blog.csdn.net/szwangdf/article/details/23432783
 		-->
-		<property name="mapperLocations" value="classpath*:com/zjrodger/modules/**/dao/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath*:mapper/**/*.xml" />
 
 		<property name="dataSource" ref="druidDataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
@@ -101,7 +101,7 @@
 	</aop:config>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.zjrodger.modules.activiti.dao" />
+		<property name="basePackage" value="com.zjrodger.modules.activiti.dao,com.zjrodger.modules.system.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 </beans>
