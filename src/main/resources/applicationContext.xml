@@ -3,14 +3,19 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<!-- 引入数据源组件 -->
+	<!-- ========= 引入数据源组件 =========-->
 	<import resource="spring/spring-dataSource.xml"/>
 
-	<!-- ================================= -->
 	<!-- ========= 引入Acitviti组件 ======== -->
-	<!-- ================================= -->
 	<!-- 方式01：通过XML配置文件的方式 -->
 	<import resource="spring/spring-activiti.cfg.xml"/>
 	<!-- 方式02：通过@Configuration的JavaBean的方式，具体参考类：com.zjrodger.activiti.config.Config4Activiti-->
+
+	<!-- ========= 引入Shiro组件 ======== -->
+	<!-- 普通登录的Shiro配置 -->
+	<import resource="spring/spring-shiro.xml"/>
+
+	<!-- CAS单点登录的Shiro配置 -->
+	<!--<import resource="spring/spring-shiro-cas.xml"/>-->
 
 </beans>

@@ -216,7 +216,7 @@
         <!--若没有下列bpmn包相关的依赖，则启动项目就会报错 -->
         <!--Error creating bean with name 'processEngine':
         nested exception is java.lang.NoClassDefFoundError:
-        org/activiti/bpmn/model/AdhocSubProcess-->
+        org/activiti/bpmn/entity/AdhocSubProcess-->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-bpmn-converter</artifactId>
@@ -333,11 +333,11 @@
         <!-- ============== 安全相关组件 ================= -->
         <!-- ============================================== -->
         <!-- 引入该依赖可以使用OAuth2RestTemplate-->
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>1.0.5.RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security.oauth</groupId>-->
+            <!--<artifactId>spring-security-oauth2</artifactId>-->
+            <!--<version>1.0.5.RELEASE</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
@@ -362,13 +362,14 @@
             <resource>
                 <directory>src/main/resources/</directory>
                 <includes>
-                    <include>*.properties</include>
-                    <include>*.xml</include>
-                    <include>*.json</include>
-                    <include>com/**</include>
-                    <include>spring/*.xml</include>
-                    <include>static/**</include>
-                    <include>templates/**</include>
+                    <include>**/*</include>
+                    <!--<include>*.properties</include>-->
+                    <!--<include>*.xml</include>-->
+                    <!--<include>*.json</include>-->
+                    <!--<include>com/**</include>-->
+                    <!--<include>spring/*.xml</include>-->
+                    <!--<include>static/**</include>-->
+                    <!--<include>templates/**</include>-->
                 </includes>
                 <filtering>false</filtering>
             </resource>

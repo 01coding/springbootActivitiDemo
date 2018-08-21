@@ -8,10 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-//@ImportResource("classpath:applicationContext.xml")
+@ImportResource("classpath:applicationContext.xml")
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class,
-        org.activiti.spring.boot.SecurityAutoConfiguration.class,
+        org.activiti.spring.boot.SecurityAutoConfiguration.class
 })
 @ComponentScan
 public class BootServerApplication {
