@@ -6,7 +6,7 @@
     <!-- 1.Activiti流程引擎的配置Bean -->
     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 
-        <property name="dataSource" ref="druidDataSource"/>
+        <property name="dataSource" ref="dataSource"/>
 
         <property name="transactionManager" ref="transactionManager"/>
 

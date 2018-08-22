@@ -7,7 +7,7 @@
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	<!-- 阿里Druid数据源 -->
-	<bean name="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		  init-method="init" destroy-method="close">
 
 <!--		<property name="url" value="jdbc:mysql://10.10.232.242:3306/activiti_test" />
@@ -39,7 +39,7 @@
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="druidDataSource" />
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -55,7 +55,7 @@
 		-->
 		<property name="mapperLocations" value="classpath*:mapper/**/*.xml" />
 
-		<property name="dataSource" ref="druidDataSource" />
+		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="plugins">
 			<list>

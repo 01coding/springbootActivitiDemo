@@ -51,11 +51,13 @@ public class ShiroConfiguration {
         map.put("/index", "authc");
         map.put("/login", "anon");
         map.put("/loginUser", "anon");
+        map.put("/druid/**", "anon");                // 定义访问druid资源不拦截
+
         // 配置shiro定向拦截的资源
-        map.put("/**", "user");  // 用户登录后，就可以访问其他所有接口
+        map.put("/**", "user");                      // 用户登录后，就可以访问其他所有接口
         map.put("/adminResource01", "roles[admin]"); // 资源adminResource01仅仅能被【admin角色】访问。
-        map.put("/edit", "perms[edit]"); // 资源edit仅仅能被【有edit权限】的用户访问。
-//        map.put("/druid/**", "anon");
+        map.put("/edit", "perms[edit]");             // 资源edit仅仅能被【有edit权限】的用户访问。
+
         factoryBean.setFilterChainDefinitionMap(map);
 
         return factoryBean;
