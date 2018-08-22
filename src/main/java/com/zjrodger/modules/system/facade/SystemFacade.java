@@ -5,8 +5,11 @@ import com.zjrodger.modules.system.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author zhangjian
@@ -19,6 +22,8 @@ public class SystemFacade {
     private static final Logger logger = LoggerFactory.getLogger(SystemFacade.class);
 
     @Autowired
+    @Qualifier("userServiceImpl")
+//    @Resource(name = "userServiceImpl")
     private UserService userService;
 
     @RequestMapping("/queryByUsername")

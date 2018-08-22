@@ -20,6 +20,13 @@
     </resultMap>
 
     <select id="findByUsername" parameterType="string" resultMap="userMap">
-        select * from t_user where username=#{username}
+        select u.*, r.*, p.*
+            from t_user u
+            inner join t_user_role ru on ru.uid=u.uid
+            inner join t_role r on r.rid=ru.rid
+            inner join t_permission_role pr on pr.rid=r.rid
+            inner join t_permission p on p.pid = pr.pid
+        where u.username=#{username}
     </select>
+
 </mapper>

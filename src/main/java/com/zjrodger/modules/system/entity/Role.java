@@ -11,7 +11,7 @@ public class Role {
 
     private Integer rid;
 
-    private Integer rname;
+    private String rname;
 
     private Set<Permission> permissions = new HashSet<>();
 
@@ -25,11 +25,11 @@ public class Role {
         this.rid = rid;
     }
 
-    public Integer getRname() {
+    public String getRname() {
         return rname;
     }
 
-    public void setRname(Integer rname) {
+    public void setRname(String rname) {
         this.rname = rname;
     }
 
