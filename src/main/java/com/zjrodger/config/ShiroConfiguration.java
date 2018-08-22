@@ -49,14 +49,12 @@ public class ShiroConfiguration {
         Map<String, String> map = new HashMap<>();
         // 配置shiro不拦截的URL资源
         map.put("/index", "authc");
-
         map.put("/login", "anon");
         map.put("/loginUser", "anon");
-
+        // 配置shiro定向拦截的资源
         map.put("/**", "user");  // 用户登录后，就可以访问其他所有接口
-
         map.put("/adminResource01", "roles[admin]"); // 资源adminResource01仅仅能被【admin角色】访问。
-
+        map.put("/edit", "perms[edit]"); // 资源edit仅仅能被【有edit权限】的用户访问。
 //        map.put("/druid/**", "anon");
         factoryBean.setFilterChainDefinitionMap(map);
 

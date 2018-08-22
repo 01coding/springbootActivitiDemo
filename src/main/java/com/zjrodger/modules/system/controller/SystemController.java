@@ -57,6 +57,12 @@ public class SystemController {
         return "adminResource01 Success";
     }
 
+    @RequestMapping("/edit")
+    @ResponseBody
+    public String edit() {
+        return "edit Success";
+    }
+
     /**
      * 两种获取前端用户传参的方法：
      * 1、通过@RequestParam注解
