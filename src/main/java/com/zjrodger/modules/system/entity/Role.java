@@ -1,5 +1,6 @@
 package com.zjrodger.modules.system.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import java.util.Set;
  * @author zhangjian
  * @create 2018-08-21
  */
-public class Role {
+public class Role implements Serializable {
 
     private Integer rid;
 

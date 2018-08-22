@@ -41,20 +41,28 @@ public class MyRealm extends AuthorizingRealm {
 
         User user = (User) principals.fromRealm(this.getClass().getName()).iterator().next();
 
-        List<String> permissionSet = new ArrayList<>();
+        List<String> permissionList = new ArrayList<>();
+        List<String> rolesList = new ArrayList<>();
+
         Set<Role> roles = user.getRoles();
         if(CollectionUtils.isNotEmpty(roles)){
             for(Role role : roles){
+                // 添加角色
+                rolesList.add(role.getRname());
+                // 添加权限
                 Set<Permission> permissions = role.getPermissions();
                 if(CollectionUtils.isNotEmpty(permissions)){
                     for(Permission p : permissions){
-                        permissionSet.add(p.getPname());
+                        permissionList.add(p.getPname());
                     }
                 }
             }
         }
         SimpleAuthorizationInfo saorInfo = new SimpleAuthorizationInfo();
-        saorInfo.addStringPermissions(permissionSet);
+        // 设置当前用户拥有的角色
+        saorInfo.addRoles(rolesList);
+        // 设置当前用户拥有的权限
+        saorInfo.addStringPermissions(permissionList);
         return saorInfo;
     }
 

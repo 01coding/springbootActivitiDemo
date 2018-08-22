@@ -1,10 +1,12 @@
 package com.zjrodger.modules.system.entity;
 
+import java.io.Serializable;
+
 /**
  * @author zhangjian
  * @create 2018-08-21
  */
-public class Permission {
+public class Permission implements Serializable {
 
     private Integer pid;
 
